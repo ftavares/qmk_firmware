@@ -30,8 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+// #define DRIVER_LED_TOTAL 42
+// #define BACKLIGHT_ON_STATE 0
+
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// #    define RGBLIGHT_MODE_STATIC_LIGHT
 // #    define RGBLIGHT_LIMIT_VAL 120
 // #    define RGBLIGHT_HUE_STEP 10
 // #    define RGBLIGHT_SAT_STEP 17
