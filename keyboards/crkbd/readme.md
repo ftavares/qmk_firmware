@@ -29,12 +29,13 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 The Corne PCBs have a reset and boot buttons next to the TRRS jack to enter in to the bootloader.
 
-Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage).  This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility. 
+Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage). This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility.
 
-## RGB Matrix 
-The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light.  This provides a better experience when using the keyboard, as it supports a number of per key effects properly.  If you're not using the in switch LEDs, then you may want to pass on doing this. 
+## RGB Matrix
 
-In your keymap's `rules.mk` file, add the following: 
+The Corne Keyboard also supports using the RGB Matrix feature, in place of RGB Light. This provides a better experience when using the keyboard, as it supports a number of per key effects properly. If you're not using the in switch LEDs, then you may want to pass on doing this.
+
+In your keymap's `rules.mk` file, add the following:
 
 ```make
 RGBLIGHT_ENABLE = no
@@ -46,13 +47,14 @@ And in your `config.h` file, add the following:
 ```c
 
 #ifdef RGB_MATRIX_ENABLE
+RGB_MATRIX_SOLID_COLOR
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #   define RGB_MATRIX_SLEEP // turn off effects when suspended
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash. 
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #    define RGB_MATRIX_HUE_STEP 8
 #    define RGB_MATRIX_SAT_STEP 8
 #    define RGB_MATRIX_VAL_STEP 8
@@ -111,4 +113,4 @@ And in your `config.h` file, add the following:
 #endif
 ```
 
-After this is done, you should be able to use the normal RGB keycodes, but you'll see the RGB Matrix effects in use, giving a much better experience. 
+After this is done, you should be able to use the normal RGB keycodes, but you'll see the RGB Matrix effects in use, giving a much better experience.

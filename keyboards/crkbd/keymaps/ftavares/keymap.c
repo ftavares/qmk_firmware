@@ -29,7 +29,7 @@ enum {
     MAC3,
 } LAYERS;
 
-static const char *FRUIT_STRING[] = {"WIN0", "Fodasse", "WIN2", "WIN3", "MAC0", "MAC1", "MAC2", "MAC3"};
+static const char *FRUIT_STRING[] = {"WIN0", "WIN1", "WIN2", "WIN3", "MAC0", "MAC1", "MAC2", "MAC3"};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split_3x6_3(
                                                                   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                                                   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                                                                   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ESC,
                                                                   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                                  KC_LGUI, PDF(4), KC_SPC, KC_ENT, MO(2), KC_RALT
+                                                                  KC_LGUI, DF(4), MO(1), KC_ENT, MO(2), KC_RALT
                                                                   //`--------------------------'  `--------------------------'
 
                                                                   ),
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                                                   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                                                                   KC_LSFT, KC_F5, KC_F10, KC_F11, KC_F12, XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                                   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                                  KC_LGUI, _______, KC_SPC, KC_ENT, MO(3), KC_RALT
+                                                                  KC_LGUI, _______, _______, KC_ENT, MO(3), KC_RALT
                                                                   //`--------------------------'  `--------------------------'
                                                                   ),
 
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                                                   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                                                                   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                                   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                                  KC_LGUI, PDF(0), KC_SPC, KC_ENT, MO(5), KC_RALT
+                                                                  KC_LGUI, DF(0), MO(5), KC_ENT, MO(5), KC_RALT
                                                                   //`--------------------------'  `--------------------------'
                                                                   ),
                                                               [5] = LAYOUT_split_3x6_3(
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
                                                                   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                                                                   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
                                                                   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                                                  KC_LGUI, MO(3), KC_SPC, KC_ENT, _______, KC_RALT
+                                                                  KC_LGUI, MO(3), _______, KC_ENT, _______, KC_RALT
                                                                   //`--------------------------'  `--------------------------'
                                                                   ),
                                                               [6] = LAYOUT_split_3x6_3(
@@ -127,8 +127,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
 };
 
 void keyboard_post_init_user(void) {
-    // rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    //  oled_write_P(PSTR("Layer: "), false);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(0, 100, 50);
+    // rgb_matrix_enable_noeeprom();
+    //  rgb_matrix_disable();
+    //   rgblight_enable_noeeprom(); // Enables RGB, without saving settings
+    //    oled_write_P(PSTR("Layer: "), false);
 
     // oled_write(FRUIT_STRING[get_highest_layer(layer_state)], false);
 
@@ -169,39 +173,57 @@ bool oled_task_user(void) {
 // }
 
 static void setText(layer_state_t state) {
+    // char buffer[100];
+    // sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), get_highest_layer(default_layer_state));
+    // // sprintf(buffer, "state is %.2d ", state);
+
+    // oled_write(buffer, false);
+
     oled_write_P(PSTR("Layer: "), false);
 
-    oled_write(FRUIT_STRING[get_highest_layer(state)], false);
+    oled_write(FRUIT_STRING[(state)], false);
 
-    switch (get_highest_layer(state)) {
+    // for (int i = 0; i <= 8; i++) {
+    //     if (IS_LAYER_ON(i)) {
+    //         // oled_write(FRUIT_STRING[i], false);
+    //         sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), i);
+    //         oled_write(buffer, false);
+    //         break;
+    //     }
+    // }
+
+    switch ((state)) {
         case 0:
-            rgblight_setrgb(255, 0, 120);
-            //  rgblight_setrgb_slave(255, 0, 0);
-            // rgb_matrix_set_hsv_noeeprom(HSV_BLUE);
+            rgb_matrix_sethsv_noeeprom(0, 100, 50);
             break;
         case 4:
-            rgblight_setrgb(0, 255, 120);
-            // rgb_matrix_set_hsv_noeeprom(HSV_GREEN);
+            rgb_matrix_sethsv_noeeprom(120, 100, 50);
             break;
     }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    setText(state);
-    return state;
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     setText(state);
+//     return state;
+// }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    setText(state);
+    // setText(state);
+    if (get_highest_layer(state) < get_highest_layer(default_layer_state)) {
+        setText(get_highest_layer(default_layer_state));
+    } else {
+        setText(get_highest_layer(state));
+    }
+
     return state;
 }
 
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    setText(state);
-    return state;
-}
+// layer_state_t default_layer_state_set_user(layer_state_t state) {
+//     setText(state);
+//     return state;
+// }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
-    setText(state);
+    setText(get_highest_layer(state));
     return state;
 }
