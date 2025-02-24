@@ -31,6 +31,36 @@ enum {
 
 static const char *FRUIT_STRING[] = {"WIN0", "WIN1", "WIN2", "WIN3", "MAC0", "MAC1", "MAC2", "MAC3"};
 
+static void setText(layer_state_t state) {
+    // char buffer[100];
+    // sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), get_highest_layer(default_layer_state));
+    // // sprintf(buffer, "state is %.2d ", state);
+
+    // oled_write(buffer, false);
+
+    oled_write_P(PSTR("Layer: "), false);
+
+    oled_write(FRUIT_STRING[(state)], false);
+
+    // for (int i = 0; i <= 8; i++) {
+    //     if (IS_LAYER_ON(i)) {
+    //         // oled_write(FRUIT_STRING[i], false);
+    //         sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), i);
+    //         oled_write(buffer, false);
+    //         break;
+    //     }
+    // }
+
+    switch ((state)) {
+        case 0:
+            rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+            break;
+        case 4:
+            rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
+            break;
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split_3x6_3(
                                                                   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
                                                                   KC_TAB, KC_0, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
@@ -128,87 +158,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split
 
 void keyboard_post_init_user(void) {
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv_noeeprom(0, 100, 50);
-    // rgb_matrix_enable_noeeprom();
-    //  rgb_matrix_disable();
-    //   rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    //    oled_write_P(PSTR("Layer: "), false);
-
-    // oled_write(FRUIT_STRING[get_highest_layer(layer_state)], false);
-
-    // switch (get_highest_layer(layer_state)) {
-    //     case 0:
-    //         rgb_matrix_set_color_all(0x00, 0x00, 0xFF);
-    //         // rgblight_sethsv(HSV_BLUE);
-    //         break;
-    //     case 4:
-    //         rgb_matrix_set_color_all(0xFF, 0x00, 0xFF);
-    //         // rgblight_sethsv(HSV_GREEN);
-    //         break;
-    // }
+    setText(get_highest_layer(layer_state));
 }
-
-bool oled_task_user(void) {
-    //  rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-    // rgblight_sethsv_noeeprom(HSV_PURPLE);
-    // rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    // rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    return false;
-}
-
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     oled_write_P(PSTR("Layer: "), false);
-
-//     oled_write(FRUIT_STRING[get_highest_layer(layer_state)], false);
-
-//     return state;
-// }
-
-// layer_state_t layer_state_set_kb(layer_state_t state) {
-//     oled_write_P(PSTR("Layer: "), false);
-
-//     oled_write(FRUIT_STRING[get_highest_layer(layer_state)], false);
-
-//     return state;
-// }
-
-static void setText(layer_state_t state) {
-    // char buffer[100];
-    // sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), get_highest_layer(default_layer_state));
-    // // sprintf(buffer, "state is %.2d ", state);
-
-    // oled_write(buffer, false);
-
-    oled_write_P(PSTR("Layer: "), false);
-
-    oled_write(FRUIT_STRING[(state)], false);
-
-    // for (int i = 0; i <= 8; i++) {
-    //     if (IS_LAYER_ON(i)) {
-    //         // oled_write(FRUIT_STRING[i], false);
-    //         sprintf(buffer, "state is %.2d %.2d %.2d", get_highest_layer(state), get_highest_layer(layer_state), i);
-    //         oled_write(buffer, false);
-    //         break;
-    //     }
-    // }
-
-    switch ((state)) {
-        case 0:
-            rgb_matrix_sethsv_noeeprom(0, 100, 50);
-            break;
-        case 4:
-            rgb_matrix_sethsv_noeeprom(120, 100, 50);
-            break;
-    }
-}
-
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     setText(state);
-//     return state;
-// }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    // setText(state);
     if (get_highest_layer(state) < get_highest_layer(default_layer_state)) {
         setText(get_highest_layer(default_layer_state));
     } else {
@@ -217,11 +170,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     return state;
 }
-
-// layer_state_t default_layer_state_set_user(layer_state_t state) {
-//     setText(state);
-//     return state;
-// }
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
     setText(get_highest_layer(state));
