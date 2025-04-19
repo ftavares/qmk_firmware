@@ -29,8 +29,7 @@ __attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRI
     {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}},
     {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}},
     {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}},
-    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}}
-};
+    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}}};
 #endif
 
 #ifdef OLED_ENABLE
@@ -42,26 +41,26 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return rotation;
 }
 
-static void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case 1:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case 2:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case 3:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-            break;
-    }
-}
+// static void oled_render_layer_state(void) {
+//     oled_write_P(PSTR("Layer: "), false);
+//     switch (get_highest_layer(layer_state)) {
+//         case 0:
+//             oled_write_ln_P(PSTR("Default"), false);
+//             break;
+//         case 1:
+//             oled_write_ln_P(PSTR("Lower"), false);
+//             break;
+//         case 2:
+//             oled_write_ln_P(PSTR("Raise"), false);
+//             break;
+//         case 3:
+//             oled_write_ln_P(PSTR("Adjust"), false);
+//             break;
+//         default:
+//             oled_write_ln_P(PSTR("Undef"), false);
+//             break;
+//     }
+// }
 
 char     key_name = ' ';
 uint16_t last_keycode;
@@ -98,23 +97,23 @@ static void set_keylog(uint16_t keycode, keyrecord_t *record) {
     key_name = pgm_read_byte(&code_to_name[keycode]);
 }
 
-static const char *depad_str(const char *depad_str, char depad_char) {
-    while (*depad_str == depad_char)
-        ++depad_str;
-    return depad_str;
-}
+// static const char *depad_str(const char *depad_str, char depad_char) {
+//     while (*depad_str == depad_char)
+//         ++depad_str;
+//     return depad_str;
+// }
 
-static void oled_render_keylog(void) {
-    oled_write_char('0' + last_row, false);
-    oled_write_P(PSTR("x"), false);
-    oled_write_char('0' + last_col, false);
-    oled_write_P(PSTR(", k"), false);
-    const char *last_keycode_str = get_u16_str(last_keycode, ' ');
-    oled_write(depad_str(last_keycode_str, ' '), false);
-    oled_write_P(PSTR(":"), false);
-    oled_write_char(key_name, false);
-    oled_advance_page(true);
-}
+// static void oled_render_keylog(void) {
+//     oled_write_char('0' + last_row, false);
+//     oled_write_P(PSTR("x"), false);
+//     oled_write_char('0' + last_col, false);
+//     oled_write_P(PSTR(", k"), false);
+//     const char *last_keycode_str = get_u16_str(last_keycode, ' ');
+//     oled_write(depad_str(last_keycode_str, ' '), false);
+//     oled_write_P(PSTR(":"), false);
+//     oled_write_char(key_name, false);
+//     oled_advance_page(true);
+// }
 
 // static void render_bootmagic_status(bool status) {
 //     /* Show Ctrl-Gui Swap options */
@@ -147,10 +146,10 @@ bool oled_task_kb(void) {
         return false;
     }
     if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_keylog();
+        // oled_render_layer_state();
+        // oled_render_keylog();
     } else {
-        oled_render_logo();
+        // oled_render_logo();
     }
     return false;
 }
