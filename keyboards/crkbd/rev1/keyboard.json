@@ -5,7 +5,8 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "rgblight": true
+        "rgblight": true,
+         "rgb_matrix": true
     },
     "build": {
         "lto": true

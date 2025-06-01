@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_MATRIX_I2C
 
 /* Select hand configuration */
+#define SPLIT_USB_TIMEOUT 5000
+#define SPLIT_USB_TIMEOUT_POLL 10
 
 #define SPLIT_USB_DETECT
 
@@ -35,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
 // #define DRIVER_LED_TOTAL 42
 // #define BACKLIGHT_ON_STATE 0
+#define SPLIT_WATCHDOG_ENABLE
 
 #define RGB_MATRIX_DEFAULT_HUE 125 // Sets the default hue value, if none has been set
 #define RGB_MATRIX_DEFAULT_SAT 255 //
